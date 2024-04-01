@@ -8,9 +8,7 @@ from sklearn.neighbors import kneighbors_graph
 from sklearn.preprocessing import StandardScaler
 from itertools import cycle, islice
 import scipy.io as io
-from scipy.cluster.hierarchy import dendrogram, linkage  #
-
-# import plotly.figure_factory as ff
+from scipy.cluster.hierarchy import dendrogram, linkage  
 import math
 from sklearn.cluster import AgglomerativeClustering
 import pickle
@@ -39,7 +37,6 @@ def fit_hierarchical_cluster(data,linkage_type,num_of_clusters,random_state):
 
 def fit_modified(data,linkage_type,num_of_clusters,random_state):
     Z=linkage(data[0],linkage_type)
-    # data[0]
     distances=[]
     for i in range(len(Z)):
         if i+1!=len(Z):
@@ -84,7 +81,6 @@ def compute():
     dct['add']=[add[0],add[1]]
 
     b = datasets.make_blobs(n_samples=n_samples, random_state=seed)
-    #print(b[0].shape,b[1].shape)
     dct['b']=[b[0],b[1]]
     
 
@@ -128,7 +124,6 @@ def compute():
         acc=[]
         dataset_cluster={}
         for linkage in ['single','complete','ward','average']:
-            #x_y=answers['1A: datasets'][dataset_i]
             preds=dct((answers['4A: datasets'][dataset_i][0],answers['4A: datasets'][dataset_i][1]),linkage,2,42)
             dataset_cluster[linkage]=preds
         acc.append((answers['4A: datasets'][dataset_i][0],answers['4A: datasets'][dataset_i][1]))
