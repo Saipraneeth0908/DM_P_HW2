@@ -1,6 +1,5 @@
 from pprint import pprint
 
-# import plotly.figure_factory as ff
 import math
 from sklearn.cluster import AgglomerativeClustering
 import pickle
@@ -77,7 +76,7 @@ def compute():
     centers=5
     random_state=12
     x,label = datasets.make_blobs(n_samples=n_samples, centers=centers,center_box=center_box, random_state=random_state)
-    #dct['bvv']=[bvv[0],bvv[1]]
+    
     cord_1=x[0:,0:1]
     cord_2=x[0:,1:]
 
@@ -92,29 +91,22 @@ def compute():
     """
   
     X=np.concatenate([answers["2A: blob"][0],answers['2A: blob'][1]],axis=1)
-    # print(X)
-    # dct value: the `fit_kmeans` function
+   
     dct = answers["2B: fit_kmeans"] = fit_kmeans
-    # print('here')
-    # print(dct)
+    
 
     """
     C.	Plot the SSE as a function of k for k=1,2,….,8, and choose the optimal k based on the elbow method.
     """
     sse_c=fit_kmeans(X,k=8)[1]
-    # print(sse_c)
-    #print([(i,sse_c[i-1]) for i in range(1,9)])
+   
     sse_vs_k=[[x,y] for x,y in zip(range(1,9),sse_c)]
-    # print(sse_vs_k)
+    
     plt.plot(np.array(sse_vs_k)[:,1])
     plt.savefig("sse_vs_k_2c.png")
-    # print(my_l)
-    # dct value: a list of tuples, e.g., [[0, 100.], [1, 200.]]
-    # Each tuple is a (k, SSE) pair
-
-    dct = answers["2C: SSE plot"] =sse_vs_k#[[0.0, 100.0]]
-    # print('Here we are')
-    # print(dct)
+    
+    dct = answers["2C: SSE plot"] =sse_vs_k
+    
 
     """
     D.	Repeat part 2.C for inertia (note this is an attribute in the kmeans estimator called _inertia). Do the optimal k’s agree?
@@ -124,11 +116,9 @@ def compute():
 
     plt.plot(np.array(sse_vs_k)[:,1])
     plt.savefig("sse_vs_k_2d.png")
-    # dct value has the same structure as in 2C
+    
     dct = answers["2D: inertia plot"] = sse_vs_k
-    # print('Inertia')
-    # print(dct)
-    # dct value should be a string, e.g., "yes" or "no"
+    
     dct = answers["2D: do ks agree?"] = "no"
 
     return answers
