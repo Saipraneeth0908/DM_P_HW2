@@ -8,7 +8,7 @@ from sklearn.neighbors import kneighbors_graph
 from sklearn.preprocessing import StandardScaler
 from itertools import cycle, islice
 import scipy.io as io
-from scipy.cluster.hierarchy import dendrogram, linkage  #
+from scipy.cluster.hierarchy import dendrogram, linkage  
 from scipy.spatial.distance import pdist
 import math
 from sklearn.cluster import AgglomerativeClustering
@@ -25,42 +25,43 @@ Recall from lecture that agglomerative hierarchical clustering is a greedy itera
 # Change the arguments and return according to
 # the question asked.
 
+def data_index_function(data_set, set_i, set_j):
+    merged_indices = []
+    for index_i in set_i:
+        merged_indices.append(data_set[index_i])
+    for index_j in set_j:
+        merged_indices.append(data_set[index_j])
+    euclidean_distances = pdist(data_set, metric='euclidean')
 
-def data_index_function(data,I,J):
-    indices=[]
-    for i in I:
-        indices.append(data[i])
-    for j in J:
-        indices.append(data[j])
-    distance_matrix = pdist(data, metric='euclidean')
+    hierarchy_links = linkage(euclidean_distances, method='single')
 
-    Z = linkage(distance_matrix, method='single')
+    cluster_distances = hierarchy_links[:, 2]
 
-    dissimilarities = Z[:, 2]
-
-    return dissimilarities
-
-
+    return cluster_distances
 def compute():
     answers = {}
 
     """
     A.	Load the provided dataset “hierachal_toy_data.mat” using the scipy.io.loadmat function.
     """
-    data=io.loadmat("hierarchical_toy_data.mat")
+    loaded_data=io.loadmat("hierarchical_toy_data.mat")
+    
     # return value of scipy.io.loadmat()
-    answers["3A: toy data"] = data
+    answers["3A: toy data"] = loaded_data
 
     """
     B.	Create a linkage matrix Z, and plot a dendrogram using the scipy.hierarchy.linkage and scipy.hierachy.dendrogram functions, with “single” linkage.
     """
-    Z = linkage(data['X'], 'single')
-    fig = plt.figure(figsize=(25, 10))
-    dn = dendrogram(Z)
-    plt.savefig('part3_questionA.png')
+    hierarchical_linkage = linkage(loaded_data['X'], 'single')
+    fig = plt.figure(figsize=(20, 10))
+    dendrogram_structure= dendrogram(hierarchical_linkage)
+    plt.savefig('linkage_part3.png')
+    
+    # Answer: NDArray
+    answers["3B: linkage"] = hierarchical_linkage
 
-    answers["3B: linkage"] = 
-    answers["3B: dendogram"] = dn
+    # Answer: the return value of the dendogram function, dicitonary
+    answers["3B: dendogram"] = dendrogram_structure
 
     """
     C.	Consider the merger of the cluster corresponding to points with index sets {I={8,2,13}} J={1,9}}. At what iteration (starting from 0) were these clusters merged? That is, what row does the merger of A correspond to in the linkage matrix Z? The rows count from 0. 
@@ -88,7 +89,7 @@ def compute():
     """
 
     # Answer type: string. Insert your explanation as a string.
-    answers["3F: rich get richer"] = "Yes, we could see as we move close to origin the merging of clusters seem to behave like one cluster is formed by merging all the points present."
+    answers["3F: rich get richer"] = "The dendrogram illustrates the 'rich grow richer' phenomena, in which smaller and larger clusters tend to combine to form a structure resembling a chain."
 
     return answers
 
