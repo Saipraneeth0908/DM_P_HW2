@@ -14,7 +14,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import accuracy_score
 
 
-# import plotly.figure_factory as ff
+
 import math
 from sklearn.cluster import AgglomerativeClustering
 import pickle
@@ -71,9 +71,9 @@ def compute():
     dct['add']=[add[0],add[1]]
 
     b = datasets.make_blobs(n_samples=n_samples, random_state=seed)
-    #print(b[0].shape,b[1].shape)
+    
     dct['b']=[b[0],b[1]]
-    # break
+   
     """
    B. Write a function called fit_kmeans that takes dataset (before any processing on it), i.e., pair of (data, label) Numpy 
    arrays, and the number of clusters as arguments, and returns the predicted labels from k-means clustering. Use the 
@@ -81,12 +81,10 @@ def compute():
    estimator. This is the function you will use in the following questions. 
     """
 
-    # dct value:  the `fit_kmeans` function
+    
     dct = answers["1B: fit_kmeans"] = fit_kmeans
     results_from_fit=dct
-    # (dct,num_of_clusters=5)
-    #print(dct)
-
+   
     """
     C.	Make a big figure (4 rows x 5 columns) of scatter plots 
     (where points are colored by predicted label) with each column 
@@ -101,12 +99,9 @@ def compute():
         acc=[]
         dataset_cluster={}
         for num_cluster in [2,3,5,10]:
-            #x_y=answers['1A: datasets'][dataset_i]
+           
             preds=dct(answers['1A: datasets'][dataset_i][0],answers['1A: datasets'][dataset_i][1],num_cluster,42)
             dataset_cluster[num_cluster]=preds
-            #accc=accuracy_score(preds,answers["1A: datasets"][dataset_i][1])
-            #Kmeans_dict_plotting[dataset_i]=accc
-            #acc.append([x_y,preds])
         acc.append((answers['1A: datasets'][dataset_i][0],answers['1A: datasets'][dataset_i][1]))
         acc.append(dataset_cluster)
         Kmeans_dict_plotting[dataset_i]=acc
