@@ -10,8 +10,6 @@ from itertools import cycle, islice
 import scipy.io as io
 from scipy.cluster.hierarchy import dendrogram, linkage  #
 from scipy.spatial.distance import pdist
-
-# import plotly.figure_factory as ff
 import math
 from sklearn.cluster import AgglomerativeClustering
 import pickle
@@ -39,7 +37,6 @@ def data_index_function(data,I,J):
     Z = linkage(distance_matrix, method='single')
 
     dissimilarities = Z[:, 2]
-    # print(dissimilarities)
 
     return dissimilarities
 
@@ -62,12 +59,8 @@ def compute():
     dn = dendrogram(Z)
     plt.savefig('part3_questionA.png')
 
-    # Answer: NDArray
-    answers["3B: linkage"] = Z
-    # print(Z)
-    # Answer: the return value of the dendogram function, dicitonary
+    answers["3B: linkage"] = 
     answers["3B: dendogram"] = dn
-    # print(dn)
 
     """
     C.	Consider the merger of the cluster corresponding to points with index sets {I={8,2,13}} J={1,9}}. At what iteration (starting from 0) were these clusters merged? That is, what row does the merger of A correspond to in the linkage matrix Z? The rows count from 0. 
@@ -81,8 +74,6 @@ def compute():
     """
     # Answer type: a function defined above
     answers["3D: function"] = data_index_function
-    # answers["3D: function"] = data_index_function(data['X'],I={8,2,13},J={1,9})
-    # print(answers["3D: function"])
 
     """
     E.	In the actual algorithm, deciding which clusters to merge should consider all of the available clusters at each iteration. List all the clusters as index sets, using a list of lists, 
