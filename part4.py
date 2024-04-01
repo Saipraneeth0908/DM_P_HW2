@@ -100,7 +100,6 @@ def compute():
         acc=[]
         dataset_cluster={}
         for linkage in ['single','complete','ward','average']:
-            #x_y=answers['1A: datasets'][dataset_i]
             preds=dct((answers['4A: datasets'][dataset_i][0],answers['4A: datasets'][dataset_i][1]),linkage,2,42)
             dataset_cluster[linkage]=preds
         acc.append((answers['4A: datasets'][dataset_i][0],answers['4A: datasets'][dataset_i][1]))
